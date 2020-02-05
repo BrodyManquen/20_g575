@@ -1,9 +1,44 @@
 // Main.js by Brody W. Manquen, 2020 /
-// Main.js by Brody W. Manquen, 2020 /
 //initialize function called when the script loads
 function initialize() {
 	cities();
 }
+//    //functioning jQueryAjax
+//    function jQueryAjax(){
+//        $.getJSON("data/MegaCities.geojson", callback);
+//    };
+//    //jQ callback
+//    function callback(response){
+//        console.log(response);
+//    };
+//    $(document).ready(jQueryAjax);
+
+//debug_ajax.js
+
+function debugCallback(response){
+	console.log('honke!')
+	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+};
+
+function debugAjax(){
+	
+	var mydata;
+    
+	$.ajax("data/MegaCities.geojson", {
+		dataType: "json",
+		success: function(response){
+			mydata = response
+			debugCallback(mydata);
+            
+		}
+	});
+
+	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
+    
+};
+
+//$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+
 
 //function to create a table with cities and their populations
 function cities() {
@@ -107,3 +142,4 @@ function addEvents(){ //creates function called addEvents()
 };
 //call the initialize function when the document has loaded
 $(document).ready(initialize);
+
