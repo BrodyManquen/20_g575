@@ -32,7 +32,7 @@ function cities() {
 	//append a header row to the table - <tr> indicates a table row
 	$("table").append("<tr>");
 	
-	//add the "City" and "Population" columns to the header row
+	//adds the "City" and "Population" columns to the header row
 	$("tr").append("<th>City</th><th>Population</th>"); //<th> stands for 'table header'
 	
 	//loop to add a new row for each city
