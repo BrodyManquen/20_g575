@@ -14,31 +14,21 @@ function initialize() {
 //    $(document).ready(jQueryAjax);
 
 //debug_ajax.js
-
-function debugCallback(response){
-	console.log('honke!')
-	$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
+function debugCallback(mydata){  //callBack takes mydata instead of 'response'
+	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata)); //appends stringified version of mydata to be read as JSON
 };
-
-function debugAjax(){
-	
-	var mydata;
-    
-	$.ajax("data/MegaCities.geojson", {
-		dataType: "json",
-		success: function(response){
-			mydata = response
-			debugCallback(mydata);
-            
+function debugAjax(){ //defines debugAjax function
+	var mydata; //creates variable 'mydata'
+	$.ajax("data/MegaCities.geojson", { //jQuery requests my MegaCities.geojson
+		dataType: "json", //specifies json data to be expected from server
+		success: function(response){ //on successful request, run enumerated function
+			mydata = response; //sets mydata to response, or to data from Megacities.geojson
+			debugCallback(mydata); //calls debugCallback running the newly defined 'mydata' variable 
 		}
 	});
-
-	$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata));
-    
+	//$(mydiv).append('<br>GeoJSON data:<br>' + JSON.stringify(mydata)); -- WILL NOT WORK because will run before successful callback
 };
-
-//$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata));
-
+//$(mydiv).append('GeoJSON data: ' + JSON.stringify(mydata)); -- WILL NOT WORK because will run before debugAjax() receives data for 'mydata' as it is outside of the callback function
 
 //function to create a table with cities and their populations
 function cities() {
@@ -81,6 +71,7 @@ function cities() {
 
     addColumns(cityPop); //calls addColumns(cityPop) as defined below
     addEvents(); //calls addEvents() as defined below
+    debugAjax()
 };
 
 function addColumns(cityPop){   //defines fucntion addColumns which by default takes "cityPop"
@@ -141,5 +132,6 @@ function addEvents(){ //creates function called addEvents()
 });
 };
 //call the initialize function when the document has loaded
+
 $(document).ready(initialize);
 
